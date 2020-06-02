@@ -1,7 +1,7 @@
 /* https://www.google.com/fonts#UsePlace:use/Collection:Lora:400italic,700italic|PT+Sans:400,700 */
 html {
   line-height: 1.5;
-  font-family: "PT Sans", sans-serif;
+  font-family: 'PT Sans', sans-serif;
   font-weight: normal;
   color: rgba(0, 0, 0, 0.87);
   user-select: none;
@@ -134,7 +134,7 @@ html {
 
 .Emphasis {
   text-transform: none;
-  font-family: "Lora", serif;
+  font-family: 'Lora', serif;
   font-style: italic;
 }
 
