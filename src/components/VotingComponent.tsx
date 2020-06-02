@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Vote } from '../types';
+import ChoiceBar from './ChoiceBar';
 
 type VotingComponentProps = Readonly<{
   vote: Vote;
@@ -17,6 +18,15 @@ export default function VotingComponent({ vote }: VotingComponentProps) {
           <div className="Badge">{totalVotes} Votes</div>
         </h1>
         <div className="Description Emphasis">{vote.description}</div>
+      </div>
+      <div>
+        {vote.choices.map((choice) => (
+          <ChoiceBar
+            key={choice.id}
+            title={choice.title}
+            percent={choice.count * (100 / totalVotes)}
+          />
+        ))}
       </div>
     </div>
   );
