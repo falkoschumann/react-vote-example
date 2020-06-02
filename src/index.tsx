@@ -4,6 +4,7 @@ import * as serviceWorker from './serviceWorker';
 
 import './index.css';
 import VotingComponent from './components/VotingComponent';
+import App from './App';
 
 const vote = {
   id: 'vote_1',
@@ -18,7 +19,9 @@ const vote = {
 
 ReactDOM.render(
   <React.StrictMode>
-    <VotingComponent vote={vote} />
+    <App>
+      <VotingComponent vote={vote} />
+    </App>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,26 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+type AppProps = Readonly<{
+  children: JSX.Element[] | JSX.Element;
+}>;
+
+export default function App({ children }: AppProps) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="Background">
+      <div className="Header">
+        <div className="Title">Vote as a Service</div>
+      </div>
+      <div className="Main">
+        <div className="Container">{children}</div>
+      </div>
     </div>
   );
 }
-
-export default App;
