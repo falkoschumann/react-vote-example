@@ -6,7 +6,7 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ChoiceBar />
+    <ChoiceBar title="JavaScript" percent={37} />
   </React.StrictMode>,
   document.getElementById('root')
 );
