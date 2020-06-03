@@ -3,6 +3,7 @@ import React from 'react';
 import { Vote, Choice } from '../types';
 import VoteList from './VoteList';
 import InactiveVoteComposer from './InactiveVoteComposer';
+import VoteComposer from './VoteComposer';
 
 type VoteControllerProps = Readonly<{
   initialVotes: ReadonlyArray<Vote>;
@@ -23,6 +24,10 @@ export default function VoteController({ initialVotes }: VoteControllerProps) {
 
   function openVoteComposer() {
     setVoteComposerActive(true);
+  }
+
+  function closeVoteComposer() {
+    setVoteComposerActive(false);
   }
 
   function registerVote(vote: Vote, choice: Choice) {
@@ -48,7 +53,11 @@ export default function VoteController({ initialVotes }: VoteControllerProps) {
         onDismissVote={unsetCurrentVote}
         onRegisterVote={registerVote}
       />
-      {voteComposerActive ? null : <InactiveVoteComposer onActivate={openVoteComposer} />}
+      {voteComposerActive ? (
+        <VoteComposer onDeactivate={closeVoteComposer} />
+      ) : (
+        <InactiveVoteComposer onActivate={openVoteComposer} />
+      )}
     </div>
   );
 }
