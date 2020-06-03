@@ -44,6 +44,11 @@ export default function VoteController({ initialVotes }: VoteControllerProps) {
     setAllVotes(newVotes);
   }
 
+  function addVote(vote: Vote) {
+    setAllVotes([...allVotes, vote]);
+    closeVoteComposer();
+  }
+
   return (
     <div>
       <VoteList
@@ -54,7 +59,7 @@ export default function VoteController({ initialVotes }: VoteControllerProps) {
         onRegisterVote={registerVote}
       />
       {voteComposerActive ? (
-        <VoteComposer onSave={() => {}} onDeactivate={closeVoteComposer} />
+        <VoteComposer onSave={addVote} onDeactivate={closeVoteComposer} />
       ) : (
         <InactiveVoteComposer onActivate={openVoteComposer} />
       )}
