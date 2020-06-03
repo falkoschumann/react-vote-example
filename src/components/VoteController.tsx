@@ -6,11 +6,11 @@ import InactiveVoteComposer from './InactiveVoteComposer';
 import VoteComposer from './VoteComposer';
 
 type VoteControllerProps = Readonly<{
-  initialVotes: ReadonlyArray<Vote>;
+  votes: ReadonlyArray<Vote>;
 }>;
 
-export default function VoteController({ initialVotes }: VoteControllerProps) {
-  const [allVotes, setAllVotes] = React.useState(initialVotes);
+export default function VoteController({ votes }: VoteControllerProps) {
+  const [allVotes, setAllVotes] = React.useState(votes);
   const [currentVoteId, setCurrentVoteId] = React.useState<string | null>(null);
   const [voteComposerActive, setVoteComposerActive] = React.useState(false);
 

@@ -32,7 +32,7 @@ const allVote = [
 ReactDOM.render(
   <React.StrictMode>
     <App>
-      <VoteController initialVotes={allVote} />
+      <VoteController votes={allVote} />
     </App>
   </React.StrictMode>,
   document.getElementById('root')
