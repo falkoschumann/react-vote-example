@@ -5,21 +5,16 @@ import ChoiceBar from './ChoiceBar';
 
 type VotingComponentProps = Readonly<{
   vote: Vote;
+  onRegisterChoice: (vote: Vote, choice: Choice) => void;
+  onDismissVote: () => void;
 }>;
 
-export default function VotingComponent({ vote: initialVote }: VotingComponentProps) {
-  const [vote, setVote] = React.useState(initialVote);
-
+export default function VotingComponent({
+  vote,
+  onRegisterChoice,
+  onDismissVote,
+}: VotingComponentProps) {
   const totalVotes = vote.choices.reduce((prev, curr) => prev + curr.count, 0);
-
-  function registerChoice(choice: Choice) {
-    setVote({
-      ...vote,
-      choices: vote.choices.map((c) =>
-        choice.id !== c.id ? c : { ...choice, count: choice.count + 1 }
-      ),
-    });
-  }
 
   return (
     <div className="Row VotingRow Spacer">
@@ -37,9 +32,14 @@ export default function VotingComponent({ vote: initialVote }: VotingComponentPr
             title={choice.title}
             percent={choice.count * (100 / totalVotes)}
             count={choice.count}
-            onClickHandler={() => registerChoice(choice)}
+            onClickHandler={() => onRegisterChoice(vote, choice)}
           />
         ))}
+      </div>
+      <div className="ButtonBar">
+        <div className="Button" onClick={onDismissVote}>
+          Vote later
+        </div>
       </div>
     </div>
   );
