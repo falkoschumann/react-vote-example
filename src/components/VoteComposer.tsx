@@ -5,6 +5,9 @@ type VoteComposerProps = Readonly<{
 }>;
 
 export default function VoteComposer({ onDeactivate }: VoteComposerProps) {
+  const [voteTitle, setVoteTitle] = React.useState('');
+  const [voteDescription, setVoteDescription] = React.useState('');
+
   return (
     <div className="Row VoteComposer Spacer">
       <div className="Head">
@@ -15,6 +18,8 @@ export default function VoteComposer({ onDeactivate }: VoteComposerProps) {
             name="title"
             type="text"
             placeholder="What do you want to know ?"
+            value={voteTitle}
+            onChange={(e) => setVoteTitle(e.target.value)}
           />
         </h1>
         <input
@@ -22,6 +27,8 @@ export default function VoteComposer({ onDeactivate }: VoteComposerProps) {
           name="description"
           type="text"
           placeholder="Describe your question on one sentence here"
+          value={voteDescription}
+          onChange={(e) => setVoteDescription(e.target.value)}
         />
       </div>
       <div className="ButtonBar">
