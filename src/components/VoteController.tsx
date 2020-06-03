@@ -54,7 +54,7 @@ export default function VoteController({ initialVotes }: VoteControllerProps) {
         onRegisterVote={registerVote}
       />
       {voteComposerActive ? (
-        <VoteComposer onDeactivate={closeVoteComposer} />
+        <VoteComposer onSave={() => {}} onDeactivate={closeVoteComposer} />
       ) : (
         <InactiveVoteComposer onActivate={openVoteComposer} />
       )}

@@ -1,10 +1,13 @@
 import React from 'react';
 
+import { Vote } from '../types';
+
 type VoteComposerProps = Readonly<{
+  onSave: (vote: Vote) => void;
   onDeactivate: () => void;
 }>;
 
-export default function VoteComposer({ onDeactivate }: VoteComposerProps) {
+export default function VoteComposer({ onSave, onDeactivate }: VoteComposerProps) {
   const [voteTitle, setVoteTitle] = React.useState('');
   const [voteDescription, setVoteDescription] = React.useState('');
   const [choices, setChoices] = React.useState(['']);
@@ -16,6 +19,22 @@ export default function VoteComposer({ onDeactivate }: VoteComposerProps) {
     }
     setChoices(newChoices);
   }
+
+  function save() {
+    const newVote = {
+      id: `vote_${Date.now()}`,
+      title: voteTitle,
+      description: voteDescription,
+      choices: choices.slice(0, -1).map((c, ix) => ({ title: c, id: `choice_${ix}`, count: 0 })),
+    };
+    onSave(newVote);
+  }
+
+  const formCompleted =
+    voteTitle &&
+    voteDescription &&
+    choices.length > 1 &&
+    choices.every((c, ix) => ix === choices.length - 1 || c.length > 0);
 
   return (
     <div className="Row VoteComposer Spacer">
@@ -51,7 +70,9 @@ export default function VoteComposer({ onDeactivate }: VoteComposerProps) {
         />
       ))}
       <div className="ButtonBar">
-        <button className="Button">Save</button>
+        <button className="Button" disabled={!formCompleted} onClick={save}>
+          Save
+        </button>
         <button className="Button" onClick={onDeactivate}>
           Cancel
         </button>
