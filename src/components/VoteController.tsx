@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Vote, Choice } from '../types';
 import VoteList from './VoteList';
+import InactiveVoteComposer from './InactiveVoteComposer';
 
 type VoteControllerProps = Readonly<{
   initialVotes: ReadonlyArray<Vote>;
@@ -10,6 +11,7 @@ type VoteControllerProps = Readonly<{
 export default function VoteController({ initialVotes }: VoteControllerProps) {
   const [allVotes, setAllVotes] = React.useState(initialVotes);
   const [currentVoteId, setCurrentVoteId] = React.useState<string | null>(null);
+  const [voteComposerActive, setVoteComposerActive] = React.useState(false);
 
   function setCurrentVote(vote: Vote) {
     setCurrentVoteId(vote.id);
@@ -17,6 +19,10 @@ export default function VoteController({ initialVotes }: VoteControllerProps) {
 
   function unsetCurrentVote() {
     setCurrentVoteId(null);
+  }
+
+  function openVoteComposer() {
+    setVoteComposerActive(true);
   }
 
   function registerVote(vote: Vote, choice: Choice) {
@@ -42,6 +48,7 @@ export default function VoteController({ initialVotes }: VoteControllerProps) {
         onDismissVote={unsetCurrentVote}
         onRegisterVote={registerVote}
       />
+      {voteComposerActive ? null : <InactiveVoteComposer onActivate={openVoteComposer} />}
     </div>
   );
 }
