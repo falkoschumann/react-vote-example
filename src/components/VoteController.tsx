@@ -15,6 +15,7 @@ export default function VoteController({ initialVotes }: VoteControllerProps) {
   const [voteComposerActive, setVoteComposerActive] = React.useState(false);
 
   function setCurrentVote(vote: Vote) {
+    closeVoteComposer();
     setCurrentVoteId(vote.id);
   }
 
@@ -23,6 +24,7 @@ export default function VoteController({ initialVotes }: VoteControllerProps) {
   }
 
   function openVoteComposer() {
+    unsetCurrentVote();
     setVoteComposerActive(true);
   }
 
