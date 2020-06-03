@@ -1,14 +1,25 @@
 import React from 'react';
 
-import { Vote } from '../types';
+import { Vote, Choice } from '../types';
 import ChoiceBar from './ChoiceBar';
 
 type VotingComponentProps = Readonly<{
   vote: Vote;
 }>;
 
-export default function VotingComponent({ vote }: VotingComponentProps) {
+export default function VotingComponent({ vote: initialVote }: VotingComponentProps) {
+  const [vote, setVote] = React.useState(initialVote);
+
   const totalVotes = vote.choices.reduce((prev, curr) => prev + curr.count, 0);
+
+  function registerChoice(choice: Choice) {
+    setVote({
+      ...vote,
+      choices: vote.choices.map((c) =>
+        choice.id !== c.id ? c : { ...choice, count: choice.count + 1 }
+      ),
+    });
+  }
 
   return (
     <div className="Row VotingRow Spacer">
@@ -25,6 +36,8 @@ export default function VotingComponent({ vote }: VotingComponentProps) {
             key={choice.id}
             title={choice.title}
             percent={choice.count * (100 / totalVotes)}
+            count={choice.count}
+            onClickHandler={() => registerChoice(choice)}
           />
         ))}
       </div>

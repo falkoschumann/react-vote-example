@@ -3,17 +3,13 @@ import React from 'react';
 type ChoiceBarProps = Readonly<{
   title: string;
   percent: number;
+  count: number;
+  onClickHandler: () => void;
 }>;
 
-export default function ChoiceBar({ title, percent }: ChoiceBarProps) {
-  const [count, setCount] = React.useState(0);
-
-  function handleClick() {
-    setCount(count + 1);
-  }
-
+export default function ChoiceBar({ title, percent, count, onClickHandler }: ChoiceBarProps) {
   return (
-    <div className="ChoiceBar" onClick={handleClick}>
+    <div className="ChoiceBar" onClick={onClickHandler}>
       <div className="Progress" style={{ width: percent + '%' }}>
         <div className="ChoiceBarTitle">{title}</div>
       </div>
