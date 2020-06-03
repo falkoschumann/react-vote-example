@@ -11,6 +11,7 @@ export default function VoteComposer({ onSave, onDeactivate }: VoteComposerProps
   const [voteTitle, setVoteTitle] = React.useState('');
   const [voteDescription, setVoteDescription] = React.useState('');
   const [choices, setChoices] = React.useState(['']);
+  const titleInputRef = React.useRef<HTMLInputElement>(null);
 
   function updateChoice(choiceIx: number, choiceTitle: string) {
     const newChoices = choices.map((c, ix) => (ix === choiceIx ? choiceTitle : c));
@@ -30,6 +31,13 @@ export default function VoteComposer({ onSave, onDeactivate }: VoteComposerProps
     onSave(newVote);
   }
 
+  function reset() {
+    setVoteTitle('');
+    setVoteDescription('');
+    setChoices(['']);
+    titleInputRef.current?.focus();
+  }
+
   const formCompleted =
     voteTitle &&
     voteDescription &&
@@ -41,6 +49,7 @@ export default function VoteComposer({ onSave, onDeactivate }: VoteComposerProps
       <div className="Head">
         <h1 className="Title">
           <input
+            ref={titleInputRef}
             className="Title"
             autoFocus
             name="title"
@@ -75,6 +84,9 @@ export default function VoteComposer({ onSave, onDeactivate }: VoteComposerProps
         </button>
         <button className="Button" onClick={onDeactivate}>
           Cancel
+        </button>
+        <button className="Button" onClick={reset}>
+          Reset
         </button>
       </div>
     </div>
