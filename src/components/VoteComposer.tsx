@@ -3,8 +3,8 @@ import React from 'react';
 import { Vote } from '../types';
 
 type VoteComposerProps = Readonly<{
-  onSave: (vote: Vote) => void;
-  onDeactivate: () => void;
+  onSave?: (vote: Vote) => void;
+  onDeactivate?: () => void;
 }>;
 
 export default function VoteComposer({ onSave, onDeactivate }: VoteComposerProps) {
@@ -23,12 +23,11 @@ export default function VoteComposer({ onSave, onDeactivate }: VoteComposerProps
 
   function save() {
     const newVote = {
-      id: `vote_${Date.now()}`,
       title: voteTitle,
       description: voteDescription,
-      choices: choices.slice(0, -1).map((c, ix) => ({ title: c, id: `choice_${ix}`, count: 0 })),
+      choices: choices.slice(0, -1).map((c, ix) => ({ title: c, count: 0 })),
     };
-    onSave(newVote);
+    onSave?.(newVote);
   }
 
   function reset() {

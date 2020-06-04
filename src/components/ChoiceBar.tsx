@@ -4,7 +4,7 @@ type ChoiceBarProps = Readonly<{
   title: string;
   percent: number;
   count: number;
-  onClickHandler: () => void;
+  onClickHandler?: () => void;
 }>;
 
 export default function ChoiceBar({ title, percent, count, onClickHandler }: ChoiceBarProps) {
