@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
+import TestRenderer from 'react-test-renderer';
 
 import ChoiceBar from '../ChoiceBar';
 
@@ -21,4 +22,14 @@ test('that it renders and button works', () => {
   fireEvent.click(getByText('Hello'));
 
   expect(onClickHandler).toHaveBeenCalled();
+});
+
+test('renders correctly (Snapshot Example)', () => {
+  let tree;
+
+  TestRenderer.act(() => {
+    tree = TestRenderer.create(<ChoiceBar title="Hello" percent={33} count={123} />);
+  });
+
+  expect(tree.toJSON()).toMatchSnapshot();
 });
