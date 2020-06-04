@@ -73,7 +73,7 @@ export default function VoteListPage() {
     dispatch({ type: 'START_REQUEST' });
 
     try {
-      const votes = await fetchJson('/api/votes');
+      const votes = await fetchJson('/api/votes?slow');
       dispatch({
         type: 'LOAD_VOTES_SUCCESS',
         votes,
