@@ -17,7 +17,7 @@ export default function VoteController({ votes, onSaveVote, onRegisterVote }: Vo
 
   function setCurrentVote(vote: Vote) {
     closeVoteComposer();
-    setCurrentVoteId(vote.id);
+    setCurrentVoteId(vote.id!);
   }
 
   function unsetCurrentVote() {

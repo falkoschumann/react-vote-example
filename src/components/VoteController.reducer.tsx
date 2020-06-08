@@ -53,7 +53,7 @@ function voteControllerReducer(
 ): VoteControllerState {
   switch (action.type) {
     case 'SET_CURRENT_VOTE':
-      return { ...state, currentVoteId: action.vote.id, voteComposerActive: false };
+      return { ...state, currentVoteId: action.vote.id!, voteComposerActive: false };
     case 'UNSET_CURRENT_VOTE':
       return { ...state, currentVoteId: null };
     case 'CLOSE_VOTE_COMPOSER':
