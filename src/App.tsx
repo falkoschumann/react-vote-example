@@ -1,17 +1,28 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 
-type AppProps = Readonly<{
-  children: JSX.Element[] | JSX.Element;
-}>;
+import VoteListPage from './components/VoteListPage';
 
-export default function App({ children }: AppProps) {
+export default function App() {
   return (
     <div className="Background">
       <div className="Header">
         <div className="Title">Vote as a Service</div>
       </div>
       <div className="Main">
-        <div className="Container">{children}</div>
+        <div className="Container">
+          <Switch>
+            <Route exact path="/">
+              <VoteListPage />
+            </Route>
+            <Route exact path="/votes/:voteId">
+              <VoteListPage />
+            </Route>
+            <Route>
+              <NotFoundPage />
+            </Route>
+          </Switch>
+        </div>
       </div>
     </div>
   );

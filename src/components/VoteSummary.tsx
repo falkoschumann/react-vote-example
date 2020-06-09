@@ -1,26 +1,24 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { Vote } from '../types';
 
 type VoteSummaryProps = Readonly<{
   vote: Vote;
-  onActive: (vote: Vote) => void;
 }>;
 
-export default function VoteSummary({ vote, onActive }: VoteSummaryProps) {
+export default function VoteSummary({ vote }: VoteSummaryProps) {
   const totalVotes = vote.choices.reduce((prev, curr) => prev + curr.count, 0);
 
-  function handleClick() {
-    onActive(vote);
-  }
-
   return (
-    <div onClick={handleClick} className="Row VotesRow Selectable">
-      <h1 className="Title">
-        {vote.title}
-        <div className="Badge">{totalVotes}</div>
-      </h1>
-      <p className="Emphasis">{vote.description}</p>
+    <div className="Row VotesRow Selectable">
+      <Link to={`/votes/${vote.id!}`}>
+        <h1 className="Title">
+          {vote.title}
+          <div className="Badge">{totalVotes}</div>
+        </h1>
+        <p className="Emphasis">{vote.description}</p>
+      </Link>
     </div>
   );
 }

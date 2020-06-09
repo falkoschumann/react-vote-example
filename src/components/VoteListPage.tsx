@@ -1,10 +1,11 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 import { Vote, Choice } from '../types';
 import { fetchJson, sendJson } from '../backend';
-import VoteLoadingIndicator from './VoteLoadingIndicator';
-import VoteController from './VoteController';
 import ErrorMessage from './ErrorMessage';
+import VoteController from './VoteController';
+import VoteLoadingIndicator from './VoteLoadingIndicator';
 
 type VoteListPageState = Readonly<{
   loading: boolean;
@@ -63,6 +64,7 @@ export function voteListReducer(
 }
 
 export default function VoteListPage() {
+  const { voteId } = useParams();
   const [state, dispatch] = React.useReducer(voteListReducer, initialState);
 
   React.useEffect(() => {
