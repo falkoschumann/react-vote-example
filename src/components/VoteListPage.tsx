@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 import { Vote, Choice } from '../types';
 import { fetchJson, sendJson } from '../backend';
@@ -54,7 +54,7 @@ export function voteListReducer(
     case 'LOAD_VOTES_FAILURE':
       return { ...state, loading: false, error: action.error.toString() };
     case 'LOAD_VOTES_SUCCESS':
-      return { ...state, loading: false, allVotes: action.votes };
+      return { ...state, loading: false, error: null, allVotes: action.votes };
     case 'ADD_VOTE_SUCCESS':
       const newVotes = [...state.allVotes, action.newVote];
       return { ...state, loading: false, allVotes: newVotes };
@@ -63,8 +63,11 @@ export function voteListReducer(
   }
 }
 
+type VoteListPageParams = Readonly<{ voteId: string }>;
+
 export default function VoteListPage() {
-  const { voteId } = useParams();
+  const currentVoteId = useParams<VoteListPageParams>().voteId;
+  const history = useHistory();
   const [state, dispatch] = React.useReducer(voteListReducer, initialState);
 
   React.useEffect(() => {
@@ -111,7 +114,17 @@ export default function VoteListPage() {
     return <ErrorMessage msg={state.error} onRetry={loadVotes} />;
   }
 
+  function dismissVote() {
+    history.push('/');
+  }
+
   return (
-    <VoteController votes={state.allVotes} onRegisterVote={registerVote} onSaveVote={addVote} />
+    <VoteController
+      votes={state.allVotes}
+      currentVoteId={currentVoteId}
+      onRegisterVote={registerVote}
+      onSaveVote={addVote}
+      onDismissVote={dismissVote}
+    />
   );
 }

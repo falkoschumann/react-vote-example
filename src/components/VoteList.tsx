@@ -7,7 +7,6 @@ import VoteSummary from './VoteSummary';
 type VoteListProps = Readonly<{
   allVotes: ReadonlyArray<Vote>;
   currentVoteId: string | null;
-  onSelectVote: (vote: Vote) => void;
   onRegisterVote: (vote: Vote, choice: Choice) => void;
   onDismissVote: () => void;
 }>;
@@ -15,7 +14,6 @@ type VoteListProps = Readonly<{
 export default function VoteList({
   allVotes,
   currentVoteId,
-  onSelectVote,
   onRegisterVote,
   onDismissVote,
 }: VoteListProps) {
@@ -30,7 +28,7 @@ export default function VoteList({
             onRegisterChoice={onRegisterVote}
           />
         ) : (
-          <VoteSummary key={vote.id} vote={vote} onActive={onSelectVote} />
+          <VoteSummary key={vote.id} vote={vote} />
         )
       )}
     </div>
