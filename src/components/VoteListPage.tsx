@@ -33,16 +33,7 @@ type LoadVotesSuccessAction = Readonly<{
   votes: ReadonlyArray<Vote>;
 }>;
 
-type AddVoteSuccessAction = Readonly<{
-  type: 'ADD_VOTE_SUCCESS';
-  newVote: Vote;
-}>;
-
-type VoteListPageAction =
-  | StartRequestAction
-  | LoadVotesFailureAction
-  | LoadVotesSuccessAction
-  | AddVoteSuccessAction;
+type VoteListPageAction = StartRequestAction | LoadVotesFailureAction | LoadVotesSuccessAction;
 
 export function voteListReducer(
   state: VoteListPageState,
@@ -55,9 +46,6 @@ export function voteListReducer(
       return { ...state, loading: false, error: action.error.toString() };
     case 'LOAD_VOTES_SUCCESS':
       return { ...state, loading: false, error: null, allVotes: action.votes };
-    case 'ADD_VOTE_SUCCESS':
-      const newVotes = [...state.allVotes, action.newVote];
-      return { ...state, loading: false, allVotes: newVotes };
     default:
       return state;
   }
@@ -97,15 +85,6 @@ export default function VoteListPage() {
     loadVotes();
   }
 
-  async function addVote(vote: Vote) {
-    dispatch({ type: 'START_REQUEST' });
-    const newVote = await sendJson('POST', '/api/votes', vote);
-    dispatch({
-      type: 'ADD_VOTE_SUCCESS',
-      newVote,
-    });
-  }
-
   if (state.loading) {
     return <VoteLoadingIndicator />;
   }
@@ -123,7 +102,6 @@ export default function VoteListPage() {
       votes={state.allVotes}
       currentVoteId={currentVoteId}
       onRegisterVote={registerVote}
-      onSaveVote={addVote}
       onDismissVote={dismissVote}
     />
   );

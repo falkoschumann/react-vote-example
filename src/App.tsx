@@ -1,10 +1,27 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useLocation, Redirect } from 'react-router-dom';
 
 import VoteListPage from './components/VoteListPage';
 import NotFoundPage from './components/NotFoundPage';
+import LoginPage from './components/LoginPage';
+import VoteComposerPage from './components/VoteComposerPage';
 
 export default function App() {
+  const [loggedIn, setLoggedIn] = React.useState(false);
+  const location = useLocation();
+
+  function voteComposerOrLogin() {
+    return loggedIn ? (
+      <VoteComposerPage />
+    ) : (
+      <Redirect to={{ pathname: '/login', state: { redirectAfter: location.pathname } }} />
+    );
+  }
+
+  function login() {
+    setLoggedIn(true);
+  }
+
   return (
     <div className="Background">
       <div className="Header">
@@ -19,6 +36,10 @@ export default function App() {
             <Route exact path="/votes/:voteId">
               <VoteListPage />
             </Route>
+            <Route path="/login">
+              <LoginPage onSuccessfulLogin={login} />
+            </Route>
+            <Route path="/compose">{voteComposerOrLogin}</Route>
             <Route>
               <NotFoundPage />
             </Route>
