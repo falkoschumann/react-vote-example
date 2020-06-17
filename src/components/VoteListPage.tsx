@@ -43,7 +43,7 @@ export function voteListReducer(
     case 'START_REQUEST':
       return { ...state, loading: true };
     case 'LOAD_VOTES_FAILURE':
-      return { ...state, loading: false, error: action.error.toString() };
+      return { ...state, loading: false, error: action.error.toString(), allVotes: [] };
     case 'LOAD_VOTES_SUCCESS':
       return { ...state, loading: false, error: null, allVotes: action.votes };
     default:
@@ -51,7 +51,7 @@ export function voteListReducer(
   }
 }
 
-type VoteListPageParams = Readonly<{ voteId: string }>;
+type VoteListPageParams = Readonly<{ voteId: string | undefined }>;
 
 export default function VoteListPage() {
   const currentVoteId = useParams<VoteListPageParams>().voteId;

@@ -5,10 +5,10 @@ import VoteList from './VoteList';
 import InactiveVoteComposer from './InactiveVoteComposer';
 
 type VoteControllerProps = Readonly<{
-  currentVoteId: string;
+  currentVoteId?: string | null;
   votes: ReadonlyArray<Vote>;
-  onRegisterVote: (vote: Vote, choice: Choice) => void;
-  onDismissVote: () => void;
+  onRegisterVote?: (vote: Vote, choice: Choice) => void;
+  onDismissVote?: () => void;
 }>;
 
 export default function VoteController({

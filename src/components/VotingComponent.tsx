@@ -5,8 +5,8 @@ import ChoiceBar from './ChoiceBar';
 
 type VotingComponentProps = Readonly<{
   vote: Vote;
-  onRegisterChoice: (vote: Vote, choice: Choice) => void;
-  onDismissVote: () => void;
+  onRegisterChoice?: (vote: Vote, choice: Choice) => void;
+  onDismissVote?: () => void;
 }>;
 
 export default function VotingComponent({
@@ -32,7 +32,7 @@ export default function VotingComponent({
             title={choice.title}
             percent={choice.count * (100 / totalVotes)}
             count={choice.count}
-            onClickHandler={() => onRegisterChoice(vote, choice)}
+            onClickHandler={() => onRegisterChoice?.(vote, choice)}
           />
         ))}
       </div>

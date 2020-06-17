@@ -1,7 +1,10 @@
 import React from 'react';
-import { render, fireEvent, wait, waitForElement } from '@testing-library/react';
+import { Router, Route } from 'react-router-dom';
+import { render, fireEvent, waitForElement } from '@testing-library/react';
+import { createMemoryHistory } from 'history';
 
 import VoteListPage from '../VoteListPage';
+import LoginProvider from '../LoginProvider';
 
 const theVotes = [
   {
@@ -30,34 +33,64 @@ afterEach(() => {
   jest.restoreAllMocks();
 });
 
-test('it loads data and renders', async () => {
+test('that it loads data and renders (with fetch mock)', async () => {
+  // https://github.com/testing-library/react-testing-library#complex-example
+
   const fetchMock = jest
     .spyOn(window, 'fetch')
-    .mockImplementationOnce(() => ({
-      ok: () => true,
-      json: () => theVotes,
-    }))
-    .mockImplementationOnce(() => ({
-      ok: () => true,
-      json: jest.fn(),
-    }))
-    .mockImplementationOnce(() => ({
-      ok: () => true,
-      json: () => theVotes,
-    }));
+    .mockImplementationOnce(
+      // note that we dont have to use async functions here,
+      // as 'await' (in our code) also works for non-await functions
+      // https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Operators/await#Syntax
+      () => ({
+        ok: () => true,
+        json: () => theVotes,
+      })
+    )
+    .mockImplementationOnce(
+      // note that we dont have to use async functions here,
+      // as 'await' (in our code) also works for non-await functions
+      // https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Operators/await#Syntax
+      () => ({
+        ok: () => true,
+        json: jest.fn(),
+      })
+    )
+    .mockImplementationOnce(
+      // note that we dont have to use async functions here,
+      // as 'await' (in our code) also works for non-await functions
+      // https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Operators/await#Syntax
+      () => ({
+        ok: () => true,
+        json: () => theVotes,
+      })
+    );
 
-  const { container, queryByText } = render(<VoteListPage />);
+  // Console warnings 'An update to .. inside a test was not wrapped":
+  // https://github.com/testing-library/react-testing-library/issues/281
+  // will disappear with React 16.9
+  const history = createMemoryHistory();
+  const { container, queryByText } = render(
+    <Router history={history}>
+      <LoginProvider>
+        <Route component={VoteListPage} />
+      </LoginProvider>
+    </Router>
+  );
   const spinner = container.querySelector('.Spinner');
   expect(spinner).toBeInTheDocument();
 
+  // DEMO ONLY: as the outstanding promises from fetch(mock) and
+  // 'backend.js' have not been resolved yet, we cannot use
+  // queryByText here, but need to use waitForElement (see below)
+  expect(queryByText('Programming languages')).not.toBeInTheDocument();
+
+  // wait until promise from fetch is resolved
   const vote = await waitForElement(() => queryByText('Programming languages'));
   expect(vote).toBeInTheDocument();
 
-  expect(fetchMock).toHaveBeenCalledWith('http://localhost:3000/api/votes?slow', undefined);
+  expect(fetchMock).toHaveBeenCalledWith('http://localhost:3000/api/votes?slow');
 
-  fireEvent.click(vote);
-  fireEvent.click(queryByText('JavaScript'));
-  await wait();
-
-  expect(fetchMock).toHaveBeenCalledTimes(3);
+  fireEvent.click(vote!);
+  expect(history.location.pathname).toBe('/votes/vote_2');
 });

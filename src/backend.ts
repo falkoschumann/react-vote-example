@@ -1,9 +1,9 @@
 const BACKEND_URL = 'http://localhost:3000';
 
-export async function fetchJson(path: string, options?: RequestInit) {
+export async function fetchJson(path: string) {
   const url = `${BACKEND_URL}${path}`;
 
-  const response = await fetch(url, options);
+  const response = await fetch(url);
 
   if (!response.ok) {
     throw new Error(`Response not OK: ${response.status}`);
