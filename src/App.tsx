@@ -5,10 +5,11 @@ import VoteListPage from './components/VoteListPage';
 import NotFoundPage from './components/NotFoundPage';
 import LoginPage from './components/LoginPage';
 import VoteComposerPage from './components/VoteComposerPage';
+import { useLogin } from './components/LoginProvider';
 
 export default function App() {
-  const [loggedIn, setLoggedIn] = React.useState(false);
   const location = useLocation();
+  const { loggedIn } = useLogin();
 
   function voteComposerOrLogin() {
     return loggedIn ? (
@@ -16,10 +17,6 @@ export default function App() {
     ) : (
       <Redirect to={{ pathname: '/login', state: { redirectAfter: location.pathname } }} />
     );
-  }
-
-  function login() {
-    setLoggedIn(true);
   }
 
   return (
@@ -37,7 +34,7 @@ export default function App() {
               <VoteListPage />
             </Route>
             <Route path="/login">
-              <LoginPage onSuccessfulLogin={login} />
+              <LoginPage />
             </Route>
             <Route path="/compose">{voteComposerOrLogin}</Route>
             <Route>

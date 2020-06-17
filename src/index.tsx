@@ -5,11 +5,14 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import App from './App';
+import LoginProvider from './components/LoginProvider';
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <App />
+      <LoginProvider>
+        <App />
+      </LoginProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById('root')

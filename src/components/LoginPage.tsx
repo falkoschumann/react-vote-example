@@ -1,21 +1,20 @@
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
-type LoginPageProps = Readonly<{
-  onSuccessfulLogin: () => void;
-}>;
+import { useLogin } from './LoginProvider';
 
 type LoginPageLocationState = Readonly<{
   redirectAfter: string;
 }>;
 
-export default function LoginPage({ onSuccessfulLogin }: LoginPageProps) {
+export default function LoginPage() {
   const [email, setEmail] = React.useState('');
   const history = useHistory();
   const location = useLocation<LoginPageLocationState>();
+  const { login } = useLogin();
 
-  function login() {
-    onSuccessfulLogin();
+  function doLogin() {
+    login();
     const redirectTo =
       location.state && location.state.redirectAfter ? location.state.redirectAfter : '/';
     history.replace(redirectTo);
@@ -40,7 +39,7 @@ export default function LoginPage({ onSuccessfulLogin }: LoginPageProps) {
           onChange={(e) => setEmail(e.target.value)}
         />
         <div className="ButtonBar">
-          <button disabled={!emailValid} className="Button" onClick={login}>
+          <button disabled={!emailValid} className="Button" onClick={doLogin}>
             Login
           </button>
           <button className="Button" onClick={cancel}>
