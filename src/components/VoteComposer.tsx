@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { Vote } from '../types';
+import { UnsavedVote } from '../types';
 
 type VoteComposerProps = Readonly<{
-  onSave?: (vote: Vote) => void;
+  onSave?: (newVote: UnsavedVote) => void;
   onDeactivate?: () => void;
 }>;
 

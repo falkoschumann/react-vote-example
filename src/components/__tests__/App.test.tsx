@@ -2,9 +2,10 @@ import React from 'react';
 import { Router, Route } from 'react-router-dom';
 import { render, fireEvent, waitForElement } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
+import { Provider } from 'react-redux';
 
-import VoteListPage from '../VoteListPage';
-import LoginProvider from '../LoginProvider';
+import configureStore from '../../configureStore';
+import App from '../../App';
 
 const theVotes = [
   {
@@ -70,12 +71,13 @@ test('that it loads data and renders (with fetch mock)', async () => {
   // https://github.com/testing-library/react-testing-library/issues/281
   // will disappear with React 16.9
   const history = createMemoryHistory();
+  const store = configureStore();
   const { container, queryByText } = render(
-    <Router history={history}>
-      <LoginProvider>
-        <Route component={VoteListPage} />
-      </LoginProvider>
-    </Router>
+    <Provider store={store}>
+      <Router history={history}>
+        <Route component={App} />
+      </Router>
+    </Provider>
   );
   const spinner = container.querySelector('.Spinner');
   expect(spinner).toBeInTheDocument();

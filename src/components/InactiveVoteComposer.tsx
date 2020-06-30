@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-import { useLogin } from './LoginProvider';
+import { AppState } from '../reducers';
 
 export default function InactiveVoteComposer() {
-  const { loggedIn } = useLogin();
+  const loggedIn = useSelector((state: AppState) => state.login !== null);
 
   const loginHint = loggedIn
     ? "(You're already logged in)"

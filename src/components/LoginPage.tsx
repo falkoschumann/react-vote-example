@@ -1,20 +1,21 @@
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
-import { useLogin } from './LoginProvider';
+import { login } from '../actions';
 
 type LoginPageLocationState = Readonly<{
   redirectAfter: string;
 }>;
 
 export default function LoginPage() {
-  const [email, setEmail] = React.useState('');
+  const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation<LoginPageLocationState>();
-  const { login } = useLogin();
+  const [email, setEmail] = React.useState('');
 
   function doLogin() {
-    login();
+    dispatch(login(email));
     const redirectTo =
       location.state && location.state.redirectAfter ? location.state.redirectAfter : '/';
     history.replace(redirectTo);

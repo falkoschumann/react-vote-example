@@ -10,3 +10,9 @@ export type Choice = Readonly<{
   title: string;
   count: number;
 }>;
+
+export type UnsavedVote = Readonly<{
+  title: string;
+  description: string;
+  choices: { title: string }[];
+}>;
