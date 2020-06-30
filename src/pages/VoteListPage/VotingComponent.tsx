@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Vote, Choice } from '../types';
+import { Vote, Choice } from '../../types';
 import ChoiceBar from './ChoiceBar';
 
 type VotingComponentProps = Readonly<{

@@ -1,6 +1,6 @@
-import { loadVotesFromServer } from "../actions";
+import { loadVotesFromServer } from '../voteListActions';
 
-test("loadVotesFromServer", () => {
+test('loadVotesFromServer', () => {
   const dispatch = jest.fn();
   const getState = jest.fn(() => ({ votes: [1] }));
 
@@ -9,31 +9,31 @@ test("loadVotesFromServer", () => {
   expect(getState).toHaveBeenCalled();
 });
 
-jest.mock("../backend", () => {
+jest.mock('../../../api/backend', () => {
   return {
     fetchJson: () => ({
-      then: fn => fn(["v1", "v2"])
-    })
+      then: (fn) => fn(['v1', 'v2']),
+    }),
   };
 });
 
-test("loadVotesFromServer", async () => {
+test('loadVotesFromServer', async () => {
   const dispatch = jest.fn();
   const getState = jest.fn(() => ({ votes: [] }));
 
   loadVotesFromServer()(dispatch, getState);
   expect(dispatch).toHaveBeenCalledWith(
     expect.objectContaining({
-      type: "API_REQUEST_START"
+      type: 'API_REQUEST_START',
     })
   );
   expect(dispatch).toHaveBeenCalledWith({
-    type: "SET_VOTES",
-    votes: ["v1", "v2"]
+    type: 'SET_VOTES',
+    votes: ['v1', 'v2'],
   });
   expect(dispatch).toHaveBeenCalledWith(
     expect.objectContaining({
-      type: "API_REQUEST_SUCCESS"
+      type: 'API_REQUEST_SUCCESS',
     })
   );
 });

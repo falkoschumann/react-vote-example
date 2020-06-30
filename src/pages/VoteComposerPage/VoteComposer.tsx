@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { UnsavedVote } from '../types';
+import { UnsavedVote } from '../../types';
 
 type VoteComposerProps = Readonly<{
   onSave?: (newVote: UnsavedVote) => void;

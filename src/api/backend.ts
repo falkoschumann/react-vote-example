@@ -1,5 +1,5 @@
 const BACKEND_URL = 'http://localhost:3000';
-const slowDown = "?slow";
+const slowDown = '?slow';
 
 export async function fetchJson(path: string) {
   const url = `${BACKEND_URL}${path}${slowDown}`;
@@ -12,7 +12,7 @@ export async function fetchJson(path: string) {
   return await response.json();
 }
 
-type HttpMethod = "get" | "post" | "put" | "patch" | "delete";
+type HttpMethod = 'get' | 'post' | 'put' | 'patch' | 'delete';
 
 export async function sendJson(method: HttpMethod, path: string, payload: any = {}) {
   const url = `${BACKEND_URL}${path}${slowDown}`;

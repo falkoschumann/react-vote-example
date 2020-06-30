@@ -2,8 +2,8 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { UnsavedVote } from '../types';
-import { saveVoteOnServer } from '../actions';
+import { UnsavedVote } from '../../types';
+import { saveVoteOnServer } from './voteComposerActions';
 import VoteComposer from './VoteComposer';
 
 export default function VoteComposerPage() {

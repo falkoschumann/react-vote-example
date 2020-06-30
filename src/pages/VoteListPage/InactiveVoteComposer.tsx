@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import { AppState } from '../reducers';
+import { AppState } from '../../rootReducer';
 
 export default function InactiveVoteComposer() {
   const loggedIn = useSelector((state: AppState) => state.login !== null);

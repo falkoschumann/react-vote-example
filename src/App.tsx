@@ -5,12 +5,12 @@ import { useSelector, shallowEqual } from 'react-redux';
 import Layout from './components/Layout';
 import ErrorMessage from './components/ErrorMessage';
 import VoteLoadingIndicator from './components/LoadingIndicator';
-import { AppState } from './reducers';
+import { AppState } from './rootReducer';
 
-const VoteListPage = React.lazy(() => import('./components/VoteListPage'));
-const NotFoundPage = React.lazy(() => import('./components/NotFoundPage'));
-const LoginPage = React.lazy(() => import('./components/LoginPage'));
-const VoteComposerPage = React.lazy(() => import('./components/VoteComposerPage'));
+const VoteListPage = React.lazy(() => import('./pages/VoteListPage/VoteListPage'));
+const NotFoundPage = React.lazy(() => import('./pages/NotFoundPage'));
+const LoginPage = React.lazy(() => import('./pages/LoginPage'));
+const VoteComposerPage = React.lazy(() => import('./pages/VoteComposerPage/VoteComposerPage'));
 
 export default function App() {
   const location = useLocation();

@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { login } from '../actions';
+import { login } from './actions';
 
 type LoginPageLocationState = Readonly<{
   redirectAfter: string;

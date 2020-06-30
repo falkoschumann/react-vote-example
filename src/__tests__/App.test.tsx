@@ -4,8 +4,8 @@ import { render, fireEvent, waitForElement } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 
-import configureStore from '../../configureStore';
-import App from '../../App';
+import configureStore from '../configureStore';
+import App from '../App';
 
 const theVotes = [
   {

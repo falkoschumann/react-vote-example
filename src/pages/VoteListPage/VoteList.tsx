@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Vote, Choice } from '../types';
+import { Vote, Choice } from '../../types';
 import VotingComponent from './VotingComponent';
 import VoteSummary from './VoteSummary';
 

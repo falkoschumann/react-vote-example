@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Vote } from '../types';
+import { Vote } from '../../types';
 
 type VoteSummaryProps = Readonly<{
   vote: Vote;

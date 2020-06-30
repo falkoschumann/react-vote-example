@@ -2,9 +2,9 @@ import React from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Vote, Choice } from '../types';
-import * as actions from '../actions';
-import { AppState } from '../reducers';
+import { Vote, Choice } from '../../types';
+import * as actions from './voteListActions';
+import { AppState } from '../../rootReducer';
 import VoteList from './VoteList';
 import InactiveVoteComposer from './InactiveVoteComposer';
 
